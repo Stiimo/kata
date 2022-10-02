@@ -1,0 +1,6 @@
+[tool_requires]
+gtest/cci.20210126
+
+[generators]
+cmake
+cmake_find_package
