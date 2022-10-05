@@ -2,17 +2,23 @@
 
 int Calculator::add(const std::string &numbers)
 {
-    auto pos = numbers.find(',');
-    if (pos == std::string::npos) {
-        return getInt(numbers);
+    if (numbers.empty()) {
+        return 0;
     }
-    return getInt(numbers.substr(0, pos)) + getInt(numbers.substr(pos + 1));
+    int result = 0;
+    std::size_t start = 0;
+    for (auto pos = numbers.find(','); pos != std::string::npos;
+         start = pos + 1, pos = numbers.find(',', start)) {
+        result += getInt(numbers.substr(start, pos - start));
+    }
+    result += getInt(numbers.substr(start));
+    return result;
 }
 
 int Calculator::getInt(const std::string &number)
 {
     if (number.empty()) {
-        return 0;
+        throw CalculationError("no number between subsequent commas");
     }
     try {
         std::size_t processed = 0;
