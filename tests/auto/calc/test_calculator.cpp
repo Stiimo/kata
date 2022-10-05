@@ -11,4 +11,7 @@ TEST(Calculator, Add)
     EXPECT_THROW(Calculator::add("1.4"), CalculationError);
     EXPECT_THROW(Calculator::add("465das"), CalculationError);
     EXPECT_THROW(Calculator::add("564679867997"), CalculationError);
+    EXPECT_EQ(Calculator::add("1\n2,3"), 6);
+    EXPECT_THROW(Calculator::add("1,\n"), CalculationError);
+    EXPECT_THROW(Calculator::add("1,,3"), CalculationError);
 }

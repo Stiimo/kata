@@ -5,6 +5,9 @@ int main()
 {
     std::string input;
     std::getline(std::cin, input);
+    for (std::string line; std::getline(std::cin, line);) {
+        input += "\n" + line;
+    }
 
     try {
         std::cout << Calculator::add(input) << std::endl;

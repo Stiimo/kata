@@ -1,5 +1,7 @@
 #include "calculator.h"
 
+constexpr auto Delimeters = ",\n";
+
 int Calculator::add(const std::string &numbers)
 {
     if (numbers.empty()) {
@@ -7,8 +9,8 @@ int Calculator::add(const std::string &numbers)
     }
     int result = 0;
     std::size_t start = 0;
-    for (auto pos = numbers.find(','); pos != std::string::npos;
-         start = pos + 1, pos = numbers.find(',', start)) {
+    for (auto pos = numbers.find_first_of(Delimeters); pos != std::string::npos;
+         start = pos + 1, pos = numbers.find_first_of(Delimeters, start)) {
         result += getInt(numbers.substr(start, pos - start));
     }
     result += getInt(numbers.substr(start));
