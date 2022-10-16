@@ -10,7 +10,6 @@ TEST(Calculator, BasicTest)
     EXPECT_EQ(Calculator::add("7,6,11,3"), 27);
     EXPECT_THROW(Calculator::add("1.4"), CalculationError);
     EXPECT_THROW(Calculator::add("465das"), CalculationError);
-    EXPECT_THROW(Calculator::add("564679867997"), CalculationError);
 }
 
 TEST(Calculator, DelimeterTest)
@@ -55,4 +54,5 @@ TEST(Calculator, BigNumbersTest)
     EXPECT_EQ(Calculator::add("//;\n3;1001;4"), 7);
     EXPECT_EQ(Calculator::add("3,1000"), 1003);
     EXPECT_EQ(Calculator::add("1001"), 0);
+    EXPECT_EQ(Calculator::add("564679867997"), 0);
 }

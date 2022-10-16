@@ -57,7 +57,7 @@ int Calculator::getInt(const std::string &number)
     } catch (const std::invalid_argument &e) {
         throw CalculationError(e.what());
     } catch (const std::out_of_range &e) {
-        throw CalculationError(e.what());
+        return 0;
     }
 }
 
