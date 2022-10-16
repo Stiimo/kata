@@ -1,6 +1,3 @@
 #include "calculationerror.h"
 
-CalculationError::CalculationError()
-{
-
-}
+CalculationError::CalculationError() {}

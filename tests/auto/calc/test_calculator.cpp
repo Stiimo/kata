@@ -1,7 +1,7 @@
 #include <calculator.h>
 #include <gtest/gtest.h>
 
-TEST(Calculator, Add)
+TEST(Calculator, BasicTest)
 {
     EXPECT_EQ(Calculator::add(""), 0);
     EXPECT_EQ(Calculator::add("1"), 1);
@@ -11,7 +11,17 @@ TEST(Calculator, Add)
     EXPECT_THROW(Calculator::add("1.4"), CalculationError);
     EXPECT_THROW(Calculator::add("465das"), CalculationError);
     EXPECT_THROW(Calculator::add("564679867997"), CalculationError);
+}
+
+TEST(Calculator, DelimeterTest)
+{
     EXPECT_EQ(Calculator::add("1\n2,3"), 6);
     EXPECT_THROW(Calculator::add("1,\n"), CalculationError);
     EXPECT_THROW(Calculator::add("1,,3"), CalculationError);
+    EXPECT_EQ(Calculator::add("//;\n1;2"), 3);
+    EXPECT_EQ(Calculator::add("//;\n1"), 1);
+    EXPECT_EQ(Calculator::add("//;\n1;2;4"), 7);
+    EXPECT_THROW(Calculator::add("//\n1,2"), CalculationError);
+    EXPECT_THROW(Calculator::add("//;1;3"), CalculationError);
+    EXPECT_THROW(Calculator::add("1;3"), CalculationError);
 }

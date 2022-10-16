@@ -9,4 +9,5 @@ public:
 
 private:
     static int getInt(const std::string &number);
+    static bool getDelimeters(const std::string &string, std::string &delimeters);
 };

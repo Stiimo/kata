@@ -1,16 +1,20 @@
 #include "calculator.h"
 
-constexpr auto Delimeters = ",\n";
+constexpr auto DefaultDelimeters = ",\n";
 
 int Calculator::add(const std::string &numbers)
 {
     if (numbers.empty()) {
         return 0;
     }
-    int result = 0;
     std::size_t start = 0;
-    for (auto pos = numbers.find_first_of(Delimeters); pos != std::string::npos;
-         start = pos + 1, pos = numbers.find_first_of(Delimeters, start)) {
+    std::string delimeters;
+    if (getDelimeters(numbers, delimeters)) {
+        start = 4;
+    }
+    int result = 0;
+    for (auto pos = numbers.find_first_of(delimeters, start); pos != std::string::npos;
+         start = pos + 1, pos = numbers.find_first_of(delimeters, start)) {
         result += getInt(numbers.substr(start, pos - start));
     }
     result += getInt(numbers.substr(start));
@@ -34,4 +38,14 @@ int Calculator::getInt(const std::string &number)
     } catch (const std::out_of_range &e) {
         throw CalculationError(e.what());
     }
+}
+
+bool Calculator::getDelimeters(const std::string &string, std::string &delimeters)
+{
+    if (string.size() < 4 || !string.starts_with("//") || string[3] != '\n') {
+        delimeters = DefaultDelimeters;
+        return false;
+    }
+    delimeters = string[2];
+    return true;
 }
