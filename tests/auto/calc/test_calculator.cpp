@@ -25,3 +25,26 @@ TEST(Calculator, DelimeterTest)
     EXPECT_THROW(Calculator::add("//;1;3"), CalculationError);
     EXPECT_THROW(Calculator::add("1;3"), CalculationError);
 }
+
+TEST(Calculator, NegativeTest)
+{
+    try {
+        Calculator::add("-1");
+        FAIL() << "Calling add(\"-1\") should throw an exception";
+    } catch (const CalculationError &e) {
+        EXPECT_STREQ(e.what(), "negatives not allowed: -1");
+    }
+    try {
+        Calculator::add("-1,-8");
+        FAIL() << "Calling add(\"-1,-8\") should throw an exception";
+    } catch (const CalculationError &e) {
+        EXPECT_STREQ(e.what(), "negatives not allowed: -1, -8");
+    }
+    try {
+        Calculator::add("1,-8");
+        FAIL() << "Calling add(\"1,-8\") should throw an exception";
+    } catch (const CalculationError &e) {
+        EXPECT_STREQ(e.what(), "negatives not allowed: -8");
+    }
+    EXPECT_THROW(Calculator::add("-1,"), CalculationError);
+}

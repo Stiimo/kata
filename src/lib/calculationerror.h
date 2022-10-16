@@ -19,4 +19,3 @@ public:
     CalculationError(CalculationError &&other) noexcept = default;
     CalculationError &operator=(CalculationError &&other) noexcept = default;
 };
-

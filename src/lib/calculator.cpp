@@ -1,4 +1,6 @@
 #include "calculator.h"
+#include <algorithm>
+#include <vector>
 
 constexpr auto DefaultDelimeters = ",\n";
 
@@ -13,12 +15,31 @@ int Calculator::add(const std::string &numbers)
         start = 4;
     }
     int result = 0;
+    std::vector<int> negatives;
     for (auto pos = numbers.find_first_of(delimeters, start); pos != std::string::npos;
          start = pos + 1, pos = numbers.find_first_of(delimeters, start)) {
-        result += getInt(numbers.substr(start, pos - start));
+        auto value = getInt(numbers.substr(start, pos - start));
+        if (value < 0) {
+            negatives.push_back(value);
+        } else {
+            result += value;
+        }
     }
-    result += getInt(numbers.substr(start));
-    return result;
+    auto value = getInt(numbers.substr(start));
+    if (value < 0) {
+        negatives.push_back(value);
+    } else {
+        result += value;
+    }
+    if (negatives.empty()) {
+        return result;
+    } else {
+        auto error = std::to_string(negatives[0]);
+        for (size_t i = 1; i < negatives.size(); ++i) {
+            error += ", " + std::to_string(negatives[i]);
+        }
+        throw CalculationError("negatives not allowed: " + error);
+    }
 }
 
 int Calculator::getInt(const std::string &number)
