@@ -21,14 +21,14 @@ int Calculator::add(const std::string &numbers)
         auto value = getInt(numbers.substr(start, pos - start));
         if (value < 0) {
             negatives.push_back(value);
-        } else {
+        } else if (value < 1001) {
             result += value;
         }
     }
     auto value = getInt(numbers.substr(start));
     if (value < 0) {
         negatives.push_back(value);
-    } else {
+    } else if (value < 1001) {
         result += value;
     }
     if (negatives.empty()) {

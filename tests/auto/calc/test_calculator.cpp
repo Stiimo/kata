@@ -48,3 +48,11 @@ TEST(Calculator, NegativeTest)
     }
     EXPECT_THROW(Calculator::add("-1,"), CalculationError);
 }
+
+TEST(Calculator, BigNumbersTest)
+{
+    EXPECT_EQ(Calculator::add("3,1001"), 3);
+    EXPECT_EQ(Calculator::add("//;\n3;1001;4"), 7);
+    EXPECT_EQ(Calculator::add("3,1000"), 1003);
+    EXPECT_EQ(Calculator::add("1001"), 0);
+}
